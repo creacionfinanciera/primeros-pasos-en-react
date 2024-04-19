@@ -39,4 +39,65 @@ Para crear el proyecto con Create React App:
 2. `npx create-react-app`+`counter-app` => para comenzar a crear el proyecto
 3. Observamos como se crean todas las carpetas y archivos del proyecto en visual studio code, en la carpeta 'counter-app'. Le cambiamos el nombre a 'counter-app-cra'.
 
+## Estructura de directorios - CRA
+Estas se conocen como aplicaciones de node porque vemos el 'package-lock.json', vemos el 'package.json', vemos los módulos de node, en pocas palabras esto es una aplicación de node, pero esta configurada de tal manera que nos sirve a nosotros para crear aplicaciones de react, pero con esta misma estructura trabajan tambien otros frameworks y otras librerías.
+
+### Archivo: `package-lock.json`
+
+Este proyecto rapidamente podemos observar que fue creado con npm, porque tenemos el archivo 'package-lock.json', que es un archivo que le dice a nuestra aplicación de node, como fue construida la dependencia de nuestros módulos de node. El 'package-lock.json' es un archivo que nunca debemos tocar manualmente.
+
+### Archivo: `.gitignore`
+
+Es un archivo que la gente de CRA lo pone por nosotros para excluir todos los archivos que no queremos que sean parte de nuestro repositorio, por ejemplo la carpeta '/node_modules' es una carpeta que nosotros nunca vamos a tener que manipular directamente, nunca vamos a realizar un cambio, porque cuando haya algun cambio o alguna actualización en uno de estos paquetes, que son muchos, no todo esto cae en la aplicación de producción, porque estas son dependencias de producción y tambien de desarrollo, el 99% son cosas de desarrollo.
+
+### Archivo: `package.json`
+
+Este archivo tiene mucha información interesante, el nombre de la aplicación, la versión de la aplicación, "private" significa que no es un paquete de npm que nosotros vamos a terminar subiendo, tiene las dependencias de producción, tiene los scripts o comandos que podemos ejecutar rapidamente en este proyecto. estas son algunas cosas importantes:
+
+`"start": "react-scripts start"` => levanta nuestro servidor de desarrollo para poder desarrollar aplicaciones react
+`"build": "react-scripts build"` => construye la versión de producción de react, y lo deja listo y optimizado para que nosotros podamos tener nuestra aplicación de react y subirla a cualquier lugar
+`"test": "react-scripts test"` => para hacer el resting
+`"eject": "react-scripts eject"` => tener mucho cuidado a la hora de llamar este, porque abre el proyecto y tenemos la posibilidad de hacer configuraciones a webpack y otro monton de cosas, pero una vez que hacemos el eject no podemos volver a como estaba originalmente el proyecto, normalmente esto no hace falta hacerlo a no ser que haya algo muy puntual que necesitemos hacer.
+
+#### Archivo: `README.md`
+
+Muestra lo que nosotros queremos que vean las personas que entran en nuestro repositorio en Github. Todos los archivos que hemos explicado hasta el momento no tienen nada que ver con 'React' sin con 'Node'.
+
+### Carpeta: `node_modules`
+
+Son todas las dependencias de desarrollo y las dependencias que tienen otras dependencias para manejar nuestrom proyecto, nuevamente, casi el 99% de estas dependencias no llegan a la versión de producción, es mas, ahí podemos ver qie aqui está la propia librería de react, pero no vamos a ir nunca a estos directorios a manipularlos directamente.
+
+### Carpeta: `public`
+
+Esta carpeta es muy interesante porque vamos a estar utilizandola mucho a lo largo del curso. El objetivo del CRA es crear un SPA (Single Page Application), que tiene solamente un `index.html`, y toda nuestra aplicación va a acabar siendo montada en el `<div id="root"></div>`, este root es el mismo que tenemos en la carpeta `src` y el archivo `index.js` con esta línea de código `const root = ReactDOM.createRoot(document.getElementById('root'));`.
+
+- El archivo `favicon.ico` es el logo de React que siempre aparece.
+
+- El archivo `index.html` que tiene ciertos estilos, y que ya viene preconfigurado con un `manifest.json`, que ayuda a que rapidamente tengamos una `PWA` o el punto inicial de una PWA, para saber cual es el icono, cual es el color y muchas cosas mas que trae por defecto, que pude ser que se necesiten o puede ser que no.
+
+- Los archivos `logo192.png` y `logo512.png` son un par de logos de React.
+
+- El archivo `manifest.json` es utilizado para exponer como luce la aplicación cuando se instala en un 'home screen', especificamente en Android, donde esto le saca más provecho. 
+
+- El archivo `robots.txt` que es propiamente para los bots de google, para indexar páginas, entonces aqui le dice cierta información, pero esto no tiene nada que ver con React tampoco, todos estos archivos exceptuando el `index.html` son cosas que hace CRA por nosotros para que no tengamos que configurarlas.
+
+### Carpeta: `source`
+
+Cuenta con un montón de archivos que no necesariamente necesitamos para una aplicación de React:
+
+- Tenemos el archivo `App.css` que es para un estilo global.
+
+- Tenemos el archivo `App.js` el cual ya vamos a comenzar a trabajar en el curso, a veces aparece `App.jsx` y le pone el icono de React, no hay diferencia, js o jsx en cuanto a extensiones es indiferente. Se aconseja que si `<div className="App">` regresa un elemento jsx que signfica XML + JavaScript, es decir, que el archivo tiene código javascript y código html, que realmente no es HTML y se conoce como JSX, que seria una mezcla entre HTML y Javascript, colocarle la extensión `App.jsx`.
+
+- Tenemos el archivo `App.test.js` que es para el testing que veremos más adelante.
+
+- Tenemos el archivo `index.css` que es otro archivo de estilo global que esta encapsulado, y ya lo veremos más adelante.
+
+- Tenemos el archivo `index.js` que es el punto de entrada de nuestra aplicación, donde esta la importación de React, ReactDom, para montarlo, tenemos la importación del estilo global que es nuestro `index.css`, estamos montando nuestro primer componente `App`, que de este se desprenden todos los demás, y luego tenemos el `reportWebVitals` que esto lo vamos a terminar eliminando porque no es necesario, esto es algo que hace el CRA por nosotros de manera automática. También está el `const root = ReactDOM.createRoot(document.getElementById('root'));` que empieza a crear cual es el nodo 'root' para nuestra aplicación de React, que esta bien que lo trabajemos en modo estricto, porque queremos que no advierta si estamos realizando mal algun tipo de código o estamos haciendo mal algo, se puede manejar de manera 'no estricta', pero no es recomendable.
+
+- Tenemos el archivo `logo.svg` que es el logo de React.
+
+- Tenemos el archivo `reportWebVitals.js` que es la configuración de `reportWebVitals`.
+
+- Tenemos el archivo `setupTests.js` que es algo que vamos a ver más adelante. 
 
