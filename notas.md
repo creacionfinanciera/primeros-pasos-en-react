@@ -40,6 +40,7 @@ Para crear el proyecto con Create React App:
 3. Observamos como se crean todas las carpetas y archivos del proyecto en visual studio code, en la carpeta 'counter-app'. Le cambiamos el nombre a 'counter-app-cra'.
 
 ## Estructura de directorios - CRA
+
 Estas se conocen como aplicaciones de node porque vemos el 'package-lock.json', vemos el 'package.json', vemos los módulos de node, en pocas palabras esto es una aplicación de node, pero esta configurada de tal manera que nos sirve a nosotros para crear aplicaciones de react, pero con esta misma estructura trabajan tambien otros frameworks y otras librerías.
 
 ### Archivo: `package-lock.json`
@@ -99,5 +100,44 @@ Cuenta con un montón de archivos que no necesariamente necesitamos para una apl
 
 - Tenemos el archivo `reportWebVitals.js` que es la configuración de `reportWebVitals`.
 
-- Tenemos el archivo `setupTests.js` que es algo que vamos a ver más adelante. 
+- Tenemos el archivo `setupTests.js` que es algo que vamos a ver más adelante.
+
+## Estructura de directorio - VITE
+
+Aqui vamos a explicar algunas sutiles diferencias que existen con respecto a CRA.
+
+### Archivo: `package.json`
+
+En las dependencias vamos a notar que hay menos dependencias en VITE, porque CRA instala muchas cosas para que nosotros no las tengamos que configurar, a diferencia de VITE que cuando las queramos utilizar las vamos a tener que instalar. Pero algo importante que tiene VITE, es la forma de cambiar modulos en caliente, hace el cambio tan rápido que parece que nunca hizo ningún cambio, porque en el momento en que ustedes tocan cmd+s, ta esta desplegado el cambio sin importar que tan grande sea la aplicación.
+
+- Tenemos el `"dev": "vite"`, que simplemente ejecuta el comando de Vite
+- Tenemos el `"build": "vite build"`, que es para construir la aplicación de producción
+- Y tenemos otras dependencias ... que no es relevate explicar
+
+### Archivo: `README.md`
+
+No tenemos un archivo de readme en comparación con CRA, por lo tanto si subimos este repositorio a Github, vamos a tener que crar manualmente el archivo README.md y esta bien, lo hacemos de esa manera.
+
+### Archivo: `index.html`
+
+- Tenemos este archivo en la raíz de nuestro proyecto, a diferencia de CRA, que lo teniamos dentro de la carpeta `public`. 
+- No tiene puesto por defecto el `manifest.json` dentro del archivo, a diferencia de CRA que si lo tiene, puede que no necesitemos ponerlo en un proyecto o puede que si, entonces en el caso de VITE va a depender de nosotros.
+- Tiene tambien el <div id="root"></div>
+- Tiene tambien el modulo inicial que termina siendo reemplasado con otros módulos, pero es interesante como lo maneja VITE, <script type="module" src="/src/main.jsx"></script>
+
+## Archivo: `vite.config.js`
+
+- Este archivo no lo tiene CRA, y nos va a servir para hacer configuraciones propias de VITE, que no tienen nada que ver con REACT. Se trata más de una forma que tiene VITE para trabajar, por ejemplo: `plugins: [react()]`, pone a React de manera global en toda la aplicación o en todos sus componentes, y no tenemos que estar importando React en todo lado. 
+
+## Archivo: `yarn.lock`
+
+Este archivo no me aparece a mi porque cree el proyecto con npm, si fue creado con npm, no aparece ningun archivo. Se puede trabajar con cualquiera de los dos, yarn o npm, pero es recomendable no mezclarlos o estar cambiando de metodología porque los archivos `.lock` no van a seguirle el orden, si ustedes quieren cambiar simplemente basta con que ustedes borren el `package-lock.json` o el `yarn.lock`, y simplemente vuelvan a usar 'npm install' o 'yarn install', pero estos archivos no se deben manipular directamente.
+
+## Carpeta: `src`
+
+Tiene algunas diferencias en todos sus archivos, pero todo eso lo vamos a hacer y ver en detalle para que quede muy claro.
+
+NO HAY QUE SER EXPERTO EN ESTE MOMENTO EN TODAS ESTAS DIFERENCIAS, UNICAMENTE ES SABER QUE EXISTEN, TODO SE VA APRENDIENDO EN LA MARCHA.
+
+
 
