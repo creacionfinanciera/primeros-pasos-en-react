@@ -125,15 +125,15 @@ No tenemos un archivo de readme en comparación con CRA, por lo tanto si subimos
 - Tiene tambien el <div id="root"></div>
 - Tiene tambien el modulo inicial que termina siendo reemplasado con otros módulos, pero es interesante como lo maneja VITE, <script type="module" src="/src/main.jsx"></script>
 
-## Archivo: `vite.config.js`
+### Archivo: `vite.config.js`
 
 - Este archivo no lo tiene CRA, y nos va a servir para hacer configuraciones propias de VITE, que no tienen nada que ver con REACT. Se trata más de una forma que tiene VITE para trabajar, por ejemplo: `plugins: [react()]`, pone a React de manera global en toda la aplicación o en todos sus componentes, y no tenemos que estar importando React en todo lado. 
 
-## Archivo: `yarn.lock`
+### Archivo: `yarn.lock`
 
 Este archivo no me aparece a mi porque cree el proyecto con npm, si fue creado con npm, no aparece ningun archivo. Se puede trabajar con cualquiera de los dos, yarn o npm, pero es recomendable no mezclarlos o estar cambiando de metodología porque los archivos `.lock` no van a seguirle el orden, si ustedes quieren cambiar simplemente basta con que ustedes borren el `package-lock.json` o el `yarn.lock`, y simplemente vuelvan a usar 'npm install' o 'yarn install', pero estos archivos no se deben manipular directamente.
 
-## Carpeta: `src`
+### Carpeta: `src`
 
 Tiene algunas diferencias en todos sus archivos, pero todo eso lo vamos a hacer y ver en detalle para que quede muy claro.
 
