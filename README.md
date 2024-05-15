@@ -138,3 +138,207 @@ Este archivo no me aparece a mi porque cree el proyecto con npm, si fue creado c
 Tiene algunas diferencias en todos sus archivos, pero todo eso lo vamos a hacer y ver en detalle para que quede muy claro.
 
 NO HAY QUE SER EXPERTO EN ESTE MOMENTO EN TODAS ESTAS DIFERENCIAS, UNICAMENTE ES SABER QUE EXISTEN, TODO SE VA APRENDIENDO EN LA MARCHA.
+
+## Hola Mundo en React
+
+En el archivo `package.json` podemos ver el siguiente comando que es con el que abrimos la aplicación con React:
+
+`"dev": "vite",`
+
+Si es un proyecto de npm ejecutamos éste comando => `npm run dev`
+
+Inmediatamente nos sale lo siguiente:
+
+  VITE v5.2.9  ready in 795 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+
+Copiamos la url y la abrimos en el navegador.
+Observamos como gira el icono de React, la aplicación es un contador, si damos clic en el botón, vemos como van contando varios números. 
+
+Vamos a seleccionar todo lo de la carpeta `src` y lo vamos a borrar, para hacer todo desde "cero", y observamos que nos tira un error en el navegador, porque el archivo `main` ya no existe.
+
+Y comenzamos:
+
+1. Creamos un archivo `main.jsx` dentro de la carpeta `src`. Cuando veamos un archivo jsx, podemos inferir que hay código React, porque es código xml + código javascript
+
+2. Escribimos el comando `imr` que nos trae `import React from 'react'` que instala la importación de React rapidamente
+
+3. Tambien importamos `import ReactDOM from 'react-dom/client'`, estos dos son los elementos que yo necesito para renderizar mi aplicación
+
+4. Pero, ¿Qué es lo que voy a renderizar, que voy a mostrar?: Usualmente todo en React comienza con un componente o un "funcional component", ese es el punto de entrada de nuestra aplicación, y ese componente no es más que una función. Tambien se trabaja con clases en React, pero las clases ya no son aconsejadas para trabajar en React, son compatibles y se pueden seguir utilizando, pero se acostumbra hoy en día a trabajar con "funcional components", es decir, componentes basados en funciones.
+
+function App() {
+    // equivalente a ... document.createElement()
+    return <h1>Hola Mundo</h1>;
+}
+
+5. Finalmente renderizamos la aplicación con la siguiente instrucción:
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    // se aconseja que siempre que rendericemos lo hagamos en el modo estricto
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
+
+)
+
+6. Inmediatamente va a aparecer en el navegador la función App() renderizada, asi se trabaja React.
+
+## Para crear los estilos en CSS
+Podemos utilizar todo tipo de metodologías para dar estilos, react no es discriminativo con este asunto:
+
+- CSS puro
+- Bootstrap
+- Tailwind
+- Sass
+
+1. Para esto vamos a crear un archivo dentro de la carpeta `src` que se llame `styles.css`.
+2. Luego nos vamos a nuestro archivo `main.jsx` y hacemos la importación del archivo `styles.css` para que haga parte de mi aplicación.
+
+## Comunicación entre componentes
+
+En esta clase vamos a hablar sobre un concepto fundamental que son las properties, que los "functional components" reciben, usualmente lo vamos a escuchar como "props", que son las propiedades que le estamos mandando a nuestra función.
+
+## PropTypes
+
+Para trabajar las PropTypes, necesitamos instalarlas en VITE
+`npm install prop-types`, en la carpeta del proyecto, en la terminal
+
+## useState - Hook
+
+Esta es de las mejores cosas que React ha incluido en su librería en muchos años, la parte de los Hooks hizo que me gustará mucho trabajar en React.
+
+Los Hooks no son más que funciones.
+
+# PRUEBAS UNITARIAS Y DE INTEGRACION
+
+## Introducción a las pruebas unitarias y de integración
+
+### ¿Qué son las pruebas?
+
+Las pruebas no son una pérdida de tiempo como muchas personas piensan que lo son, hay dos tipos principales de pruebas, las unitarias y las de integración.
+
+### ¿Para qué sirven las pruebas?
+
+#### Pruebas Unitarias
+Estan enfocadas en pequeñas funcionalidades de su aplicación, en pequeñas piezas que hay que probar.
+
+`Ejemplo:` Observemos una llanta como si fuera una prueba sencilla, pensemos en esta llanta como un componente aislado que será nuestra prueba unitaria, nosotros vamos a probar que la llanta ande bien, que gire correctamente, que no haya deformaciones, que cuando se abra la caja, salga una llanta y no que sea una pieza que no es una llanta, etc.
+
+Al hacer estas pruebas nosotros podriamos detectar cosas como que la llanta no tiene la resistencia suficiente, hay valores que no funcionan en esta llanta, se destruyó muy rápido, etc.
+
+![Pruebas_Unitarias](./img/imagen-pruebas-unitarias.png)
+
+#### Pruebas de Integración
+Estan enfocadas en como reaccionan varias piezas en conjunto.
+
+`Ejemplo:` Una prueba de integración sería que nosotros tomemos cuatro de esas llantas, les montamos la carrocería, les montamos el carro, y ahora vamos a probar las llantas en conjunto con la carrocería, con las ventanas, con el motor, con todas las piezas, y ver si se integran correctamente, si trabajan como yo espero.
+
+![Pruebas_de_Integracion](./img/imagen-pruebas-de-integracion.png)
+
+### Características
+
+- Fáciles de escribir
+- Fáciles de leer
+- Confiables
+- Rápidas
+- Principalmente unitarias
+
+Usualmente vamos a empezar de pequeñas partes, si nosotros tenemos todas las piezas pequeñas probadas, hacer una prueba de integración debería de confirmar la interacción entre si, y no realizar pruebas unitarias dentro de nuestras pruebas de integración, porque todas esas pequeñas piezas ya fueron probadas, solo queremos enfocarnos en que trabajen bien entre si.
+
+Estos pasos se aplican y son conocidos como `AAA`, que son caracteristicas que nosotros siempre deberiamos incluir en nuestras pruebas:
+
+#### 1. Arrange (Arreglar)
+Es el paso en el que nosotros establecemos el estado inicial, usualmente se conoce como el sujeto a probar:
+
+- Inicializamos variables
+- Hacemos importaciones necesarias
+- Y en general preparamos el ambiente a probar
+
+#### 2. Act (Actuar)
+Es el paso dónde nosotros vamos a aplicar acciones o estímulos al sujeto de pruebas, o en pocas palabras el paso anterior:
+
+- Llamamos métodos
+- Simulamos clicks
+- Y realizamos acciones sobre el paso anterior, la idea es que aplicamos el estímulo al sujeto de pruebas, para preparar el siguiente paso
+
+#### 3. Assert (Afirmar)
+Este paso se resume a observar el comportamiento resultante:
+- Si son los resultados esperados
+- Ej: Que algo cambie, que algo incremente o bien que nada suceda
+
+### Mitos
+
+#### Hacen que mi aplicación no tenga errores
+Esto no es cierto porque las pruebas como el mismo programa, pueden ser escritos por el mismo programador o por otros programadores, pero de todos modos son humanos, y se pueden equivocar.
+
+#### Las pruebas no pueden fallar
+Esto tampoco es cierto, porque nosotros podemos hacer pruebas que arrojen falsos positivos o falsos negativos, puede que algo funcione pero la prueba no funcionó, o puede que la prueba funcione pero el programa no funcionó.
+
+#### Hacen más lenta mi aplicación
+Esto no es cierto porque la parte de las pruebas corre directamente en la máquina de desarrollo, estas pruebas no llegan a la parte de producción, no es parte del bundle que nosotros vamos a generar para desplegarlo en un servidor. Las pruebas son locales y se ejecutan en la máquina de desarrollo o en la máquina donde estamos creando nuestra aplicación.
+
+#### Es una pérdida de tiempo
+Y en parte si lo es, pero si nosotros hacemos pruebas de cosas que no tienen sentido probar, por ejemplo, si nosotros vamos a usar una librería X en nuestra aplicación, no deberiamos probar la librería, posiblemente quien creo esa librería hizo las pruebas respectivas y es él quien tiene que hacer esas pruebas, nosotros no vamos a probar si una librería o un paquete que importamos en nuestra aplicación funcione. Nosotros lo que probariamos es que las interacciones con esa librería, sea lo que sea que haga, reaccione y trabaje como nosotros esperamos en nuestra aplicación.
+
+#### Hay que probar todo
+Y esto puede ser cierto, o puede que no, si nosotros nos ponemos a probar todo, facilmente puede tomar el mismo tiempo o inclusive más que el tiempo que nos tomó crear nuestra aplicación, porque las pruebas nosotros las vamos a programar, no es algo de todo automatico. Una vez que creamos la prueba, pues la ejecutamos si si esta última si es una tarea automática, pero tendriamos que crearla.
+
+Mi recomendación es, si ustedes tienen un deadline o una fecha de entrega cercana, prueben la ruta crítica de su aplicación, prueben las características principales de la misma, y si tienen tiempo pueden probar otras características adicionales que puede ser que fallen. Hay que ser eficientes en la parte de las pruebas
+
+TODO LO MENCIONADO EN ESTA PRESENTACION SE APLICA A PRUEBAS EN CUALQUIER LENGUAJE Y EN CUALQUIER FRAMEWORK.
+
+## Mi primera prueba y configuraciones iniciales
+
+Para este ejercicio, incluimos en nuestro proyecto en la carpeta `src` de `counter-app-vite` la carpeta externa `base-pruebas`, dónde se encuentran todos los ejercicios que hicimos en la primera sección de javascript de este curso.
+
+Tambien debemos hacer ciertas configuraciones al estar trabajando con VITE.
+1. Vamos al sitio web `https://jestjs.io/`, que es un framework que sirve para hacer pruebas en aplicaciones de javascript principalmente. Nosotros vamos a estar trabajando con `Jest` y `React Testing Library` de forma complementaria, y este último lo estaremos instalando más adelante.
+2. Vamos a la documentación en la sección `Getting Started` y copiamos el comando de npm
+3. `npm install --save-dev jest` => lo ejecutamos en la terminal, e instalamos
+4. Vamos a nuestro archivo `package.json` y verificamos la dependencia `"jest": "^29.7.0",`
+5. Dentro del `package.sjon` tambien debemos crear el script del test, que lo copiamos de la documentación, en la misma sección de `getting started`
+
+{
+  "scripts": {
+    "test": "jest"
+  }
+}
+
+6. Despues de crear el script, corremos el comando en otra terminal `npm run test`, para eso abrimos una nueva pestaña en la terminal externa a VSC
+7. Inmediatamente nos dice que no encontró ninguna prueba "No tests found, exiting with code 1", y eso es porque aún no hemos creado ninguna prueba
+8. Para crear nuestra primera prueba, creamos una nueva carpeta `tests` donde tendremos un espejo de cada uno de los archivo de la carpeta source
+9. Creo mi primer archivo dentro de la carpeta `tests` => `demo.test.js`
+10. Ejecuto nuevamente mi comando de pruebas `npm run test`, y me saca otro error, "Your test suite must contain at least one test", que dice que al menos el archivo debe tener una prueba
+11. Entonces creamos la prueba dentro del archivo y volvemos a correr `npm run test`
+12. Para no estar corriendo todo el tiempo el comando, vamos a nuestro archivo `package.json` y configuramos para que se corra automaticamente cuando guardemos en nuestro proyecto `"test": "jest --watchAll"`
+13. Al tener esto configurado y con la función de VSC de autoguardado, cada vez que hagamos un cambio en la prueba, vermos en la terminal la ejecución de la prueba, si colocamos en la misma pantalla del VSC, la terminal de mac reducida a un costado, es fenomenal para trabajar
+
+## Jest - Expect - toBe
+
+1. Vamos a instalar una dependecia más para que me ayude a no tener que memorizar como se escriben cada uno de los métodos del `expect` => `npm add -D @types/jest`
+2. Confirmar una vez se abra el VSC la proxima vez, si actualiza el completado de los métodos 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
