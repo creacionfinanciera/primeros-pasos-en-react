@@ -22,7 +22,7 @@ describe('Pruebas en <DemoComponent />', () => {
     
         // 3. observar el comportamiento ... esperado
         expect( message1 ).toBe( message2 );
-        
+
     });
 
 });

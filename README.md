@@ -322,6 +322,116 @@ Tambien debemos hacer ciertas configuraciones al estar trabajando con VITE.
 1. Vamos a instalar una dependecia más para que me ayude a no tener que memorizar como se escriben cada uno de los métodos del `expect` => `npm add -D @types/jest`
 2. Confirmar una vez se abra el VSC la proxima vez, si actualiza el completado de los métodos 
 
+## Pruebas en el archivo 02-template-string.js
+
+1. Creamos la carpeta espejo de `base-pruebas` en nuestra carpeta `tests`
+2. Creamos el archivo espejo `02-template-string.test.js` en la carpeta `base-pruebas` de nuestra carpeta `tests`
+3. E inmediatamente me corre la prueba de forma automática, pero me corre para los dos archivos, si  tuvieramos 100 archivos, me mostaría demasiada información, entonces para eso hacemos lo siguiente.
+4. Presionamos la techa `w` y luego presionamos la tecla `p`
+5. En pattern > escribimos la primera parte del nombre del archivo para el cual queremos correr la prueba, que lo identifique de manera única, por ejemplo  `02-template`, y presionamos la tecla `Enter`
+6. Escribimos entonces la prueba en nuestro archivo, pero nos sale otro error "Jest encountered an unexpected token", y es porque aún nos falta otra configuración
+7. Vamos entonces a instalar una dependencia que aún nos faltaba `npm install --save-dev babel-jest @babel/core @babel/preset-env`
+8. Tambien nos pide que creemos el archivo `babel.config.js`
+9. Le colocamos al archivo esta información:
+
+module.exports = {
+  presets: [['@babel/preset-env', {targets: {node: 'current'}}]],
+};
+10. Nos salimos con `control+c` y volvemos a correr la prueba con `npm run test`
+11. Observamos un error que dice "You appear to be using a native ECMAScript module configuration file, which is only supported when running Babel asynchronously"
+12. La solución para este error es "Cambiar extensión del archivo `babel.config.js` a `.cjs`"
+13. Inmediatamente la prueba corre con normalidad
+
+## toEqual
+
+1. Vamos a pasar al archivo `05-funciones.js`
+2. Abrimos el archivo y dejamos únicamente el código que realmente nos interesa
+3. Creamos el archivo espejo `05-funciones.test.js` en la carpeta espejo `base-pruebas` ubicada en la carpeta `tests`
+4. Escribimos la prueba en el archivo creado
+5. Antes de completar toda la prueba, él se encuentra ejecutando en la terminal el archivo anterior, entonces tecla `w`, tecla `p`, nombre del archivo `05-funciones`
+
+## Pruebas con async-await
+
+1. Puede que para versiones antiguas de node la prueba nos saque un error, pero versiones recientes, que ya vienen con el 'fetch' no tendriamos ese problema. Para resover ese problema tendriamos que crear el archivo `jest.config.cjs` y hacer una configuración. Este archivo lo va a buscar tan pronto ustedes lancen el 'test suite'.
+
+2. Escribimos en este archivo el siguiente código:
+module.exports = {
+    // TODO: jsdom,
+    setupFiles: ['./jest.setup.js']
+}
+
+3. Después creamos el archivo `jest.setup.js`
+4. Instalamos el paquete de fetch => `npm add -D whatwg-fetch`, que es solo de desarrollo, no lo vamos a usar en producción para nada
+5. Y llamamos el paquete instalado desde el nuevo archivo.
+`import 'whatwg-fetch';`, y las pruebas que hagamos deberían de pasar sin problemas
+
+## Pruebas sobre componentes de React
+
+Nosotros tenemos que pensar en qué es lo que queremos evaluar en la aplicación
+1. Que mi título esté dentro de un header (h1)
+2. Qué el subtítulo esté dentro de un parrafo (p)
+3. Que el nombre esté en un parrafo (p)
+4. Que los valores por defecto sean determinados valores
+5. Que obligue al usuario a enviar siempre el título
+lo que si no tiene sentido evaluar, son los comentarios ...
+6. Tambien, si nuestra aplicación tiene botones, podemos probar que pasa si hago clic en ellos
+
+La idea es que probemos todas las posibilidades, para asegurar que nuestro componente trabaje el día de mañana de la manera esperada. Por ejemplo, que pasaría si yo le mando un título, pero ese título no aparece en el html (h1)?, es decir, no se renderiza, ese puede ser un problema bastante serio, imaginese que sea el logo de la empresa, o el nombre de la compañía, o el nombre del usuario, eso es algo que tiene que estar ahí siempre, y tengo que asegurarme que mis componentes el día de mañana trabajen como yo espero que trabajen.
+
+LAS PRUEBAS SE PUEDEN ACTUALIZAR EN CUALQUIER MOMENTO
+
+Trabajar las pruebas con `jest` es muy bueno porque es muy fuerte en el código que nosotros escribimos en nuestras pruebas como `expect`, `toBe`, `toEqual`, etc. Pero para la parte que 'jest' no es tan bueno es para hacer pruebas con componentes propios de React, especialmente con las últimas versiones de React, especialmente con las últimas versiones de React, después de la 18, que hubo cambios fuertes en la forma como se estructura internamente, entonces eso es un poco más dificil de evaluar. 
+
+La otra opción es `https://testing-library.com/`, cómo vamos a trabajar con los dos entonces?
+Vamos a usar `jest` para que nosotros podamos hacer nuestras evaluaciones, usar el `expect`, el `toBe`, y todo lo que hemos visto hasta el momento.
+
+Y vamos a usar también `React-testing-library` porque es muy bueno para manejar el DOM, para manejar el DOM virtual, es como si nosotros tuvieramos todo nuestro componente montado en memoria, y poder hacer evaluaciones y aserciones con él. Con la manipulación de el DOM, que en realidad no está haciendo manipulación del DOM, porque es algo virtual que está adentro de nuestra consola, nosotros vamos a poder saber y hacer manipulaciones de clics, vamos a poder hacer todo lo que nosotros haríamos de forma manual, ya que será `React-testing-library` quien hará los clic a los botonones, y nosotros haremos aserciones según lo que sucede después.
+
+`React-testing-library` es una librería que está más enfocada en lo que sucede en la pantalla, en lo que sucede después de hacer las interacciones, y `jest` está más orientada a hacer las aserciones y también a hacer ciertos mocks de funciones que yo necesito evaluar, por ejemplo, si ustedes quieren evaluar de que algo llegó al backend, ustedes perfectamente se crean una función ficticia, la cual va a poder controlar los panoramas de si salen bien, si sale mal.
+
+1. Vamos a la página `https://jestjs.io/`
+2. Clic en `Docs`
+3. Vamos a la sección `Framework Guides`, `Testing React Apps`
+4. Bajamos a la parte `DOM testing`, y observamos que ellos mismos recomiendan que usemos `React-testing-library`
+5. Ejecuto el comando de intslación => `npm install --save-dev @testing-library/react`
+
+Si vamos a la página de `jest` también está la instrucción:
+1. Vamos a la página `https://testing-library.com/`
+2. Clic en `Get Started`
+3. Vamos a la sección de `Frameworks`, `React Testing Library`, `Introduction`
+4. Ejecuto el comando de instalación => `npm install --save-dev @testing-library/react`
+
+## Pruebas en FirstApp - Componentes de React
+
+Al ejecutar la primera prueba nos sale un error de configuración "If you want to leave it as-is, add @babel/plugin-syntax-jsx (https://github.com/babel/babel/tree/main/packages/babel-plugin-syntax-jsx) to the 'plugins' section to enable parsing."
+
+Entonces vamos a hacer una pequeña configuración adicional:
+
+1. Vamos en VSC al archivo `jest.config.cjs` y agregamos `testEnvironment: 'jest-environment-jsdom',`
+2. Instalamos una nueva dependencia de desarrollo `npm add -D jest-environment-jsdom`
+
+Al tratar de probar, no sale un error más "Jest encountered an unexpected token", para lo cual hacemos la siguiente configuración:
+1. Vamos en VSC al archivo `babel.config.cjs`
+2. Modificamos el archivo para que quede de esta manera:
+
+module.exports = {
+    presets: [
+        [ '@babel/preset-env', { targets: { esmodules: true } } ],
+        [ '@babel/preset-react', { runtime: 'automatic' } ],
+    ],
+};
+
+3. Finalmente hacemos una instalación más que hace falta `npm add -D @babel/preset-react`
+4. Si nos sigue saliendo error, cancelamos la prueba, y volvemos a correr la prueba => `npm run test`
+
+AHORA SI PODEMOS COMENZAR NUESTRA PRUEBA!
+
+
+
+
+
+
+
 
 
 
